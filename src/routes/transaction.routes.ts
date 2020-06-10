@@ -22,9 +22,6 @@ transactionRouter.post('/', (request, response) => {
     const transactionService = new CreateTransactionService(
       transactionsRepository,
     );
-    if (type === 'outcome' && value - transactionsRepository.getBalance() < 0) {
-      throw Error('Outcome not allowed');
-    }
     const transaction = transactionService.execute({ title, value, type });
     return response.json(transaction);
   } catch (err) {
